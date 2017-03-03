@@ -1,0 +1,11 @@
+body {
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+}
+
+#viewer {
+  position: absolute;
+  top: 0;
+  left: 0;
+}

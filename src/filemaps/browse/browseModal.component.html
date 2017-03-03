@@ -1,0 +1,26 @@
+<div id="browseModal" class="modal modal-fixed-footer">
+  <div class="modal-content">
+    <h4>Add File</h4>
+
+    <button type="button" class="btn btn-lg btn-default" ng-click="$ctrl.moveToParent()">
+      <i class="fa fa-level-up"></i>
+    </button>
+
+    <span>{{ $ctrl.currentPath }}</span>
+
+    <div class="collection">
+      <a href="#" ng-repeat="entry in $ctrl.entries" class="collection-item" ng-class="{ active: entry.selected }" ng-click="$ctrl.entryClicked(entry)">
+        <strong ng-show="entry.isDir">{{ entry.name }}</strong>
+        <span ng-show="!entry.isDir">{{ entry.name }}</span>
+      </a>
+    </div> <!-- .collection -->
+
+  </div>
+  <div class="modal-footer">
+    <a class="modal-action modal-close btn-flat" ng-click="$ctrl.select()">
+      Add</a>
+
+    <a class="modal-action modal-close btn-flat">
+      Cancel</a>
+  </div>
+</div>

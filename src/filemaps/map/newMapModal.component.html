@@ -1,0 +1,37 @@
+<div id="newMapModal" class="modal modal-fixed-footer">
+  <form>
+    <div class="modal-content">
+      <h4>New Map</h4>
+
+      <div class="row">
+        <div class="input-field col s12">
+          <input ng-model="$ctrl.name" placeholder="Map Name" id="mapName" type="text" required>
+          <label for="mapName">Map Name</label>
+        </div>
+      </div> <!-- .row -->
+
+
+      <h5>Base Directory</h5>
+
+      <button type="button" class="btn btn-lg btn-default" ng-click="$ctrl.moveToParent()">
+        <i class="fa fa-level-up"></i>
+      </button>
+
+      <span>{{ vm.currentPath }}</span>
+
+      <div class="collection">
+        <a href="#" ng-repeat="entry in $ctrl.entries" class="collection-item" ng-class="{ active: entry.selected }" ng-click="$ctrl.entryClicked(entry)" ng-if="entry.isDir">
+          <strong>{{ entry.name }}</strong>
+        </a>
+      </div> <!-- .collection -->
+
+    </div>
+    <div class="modal-footer">
+      <a class="modal-action modal-close btn-flat" ng-click="$ctrl.create()">
+        Create</a>
+
+      <a class="modal-action modal-close btn-flat">
+        Cancel</a>
+    </div>
+  </form>
+</div>

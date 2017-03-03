@@ -1,0 +1,57 @@
+<div id="mapsModal" class="modal modal-fixed-footer">
+  <div class="modal-content">
+    <div class="row">
+
+      <!-- tabs -->
+      <div class="col s12">
+        <ul tabs class="tabs">
+          <li class="tab col s6">
+            <a href="#recent-maps" class="active"><i class="material-icons">access_time</i>
+              <span class="hide-on-small-only">Recent</span></a>
+          </li>
+          <li class="tab col s6">
+            <a href="#browse-maps"><i class="material-icons">folder</i>
+              <span class="hide-on-small-only">Browse</span></a>
+          </li>
+        </ul>
+      </div> <!-- .col -->
+
+      <!-- tab contents -->
+      <div id="recent-maps" class="col s12">
+        <h4>Recent Maps</h4>
+        <div class="collection">
+          <a href="#" ng-repeat="map in $ctrl.maps" class="collection-item modal-close" ng-click="$ctrl.mapClicked(map)">
+            <span class="title">{{ map.name }}</span>
+            <p>{{ map.file }}</p>
+          </a>
+        </div> <!-- .collection -->
+      </div> <!-- #recent-maps -->
+
+      <!-- browse maps -->
+      <div id="browse-maps" class="col s12">
+        <h4>Browse Maps</h4>
+
+        <button type="button" class="btn btn-lg btn-default" ng-click="$ctrl.moveToParent()">
+          <i class="fa fa-level-up"></i>
+        </button>
+
+        <span>{{ vm.currentPath }}</span>
+
+        <div class="collection">
+          <a href="#" ng-repeat="entry in $ctrl.entries" class="collection-item" ng-class="{ 'modal-close': entry.isMapFile }" ng-click="$ctrl.entryClicked(entry)" ng-show="entry.isDir || entry.isMapFile">
+            <strong ng-show="entry.isDir">{{ entry.name }}</strong>
+            <span ng-show="!entry.isDir && entry.isMapFile">{{ entry.name }}</span>
+          </a>
+        </div> <!-- .collection -->
+
+      </div> <!-- #browse-maps -->
+
+    </div> <!-- .row -->
+
+  </div> <!-- .modal-content -->
+
+  <div class="modal-footer">
+    <a class="modal-action modal-close btn-flat">
+      Cancel</a>
+  </div> <!-- .modal-footer -->
+</div>

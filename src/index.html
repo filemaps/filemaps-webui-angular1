@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+
+<!--
+// Copyright (C) 2017 File Maps Web UI Authors.
+//
+// This Source Code Form is subject to the terms of the Mozilla Public
+// License, v. 2.0. If a copy of the MPL was not distributed with this
+// file, You can obtain one at http://mozilla.org/MPL/2.0/.
+-->
+
+<html lang="en" ng-app="filemaps">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>File Maps</title>
+    <!-- inject-vendor:css -->
+    <link rel="stylesheet" href="../bower_components/materialize/dist/css/materialize.css">
+    <link rel="stylesheet" href="../bower_components/angular-materialize/css/style.css">
+    <!-- endinject -->
+
+    <!-- inject:css -->
+    <link rel="stylesheet" href="css/filemaps.css">
+    <!-- endinject -->
+</head>
+<body>
+    <fm-viewer></fm-viewer>
+
+    <!-- inject-vendor:js -->
+    <script src="../bower_components/jquery/dist/jquery.js"></script>
+    <script src="../bower_components/angular/angular.js"></script>
+    <script src="../bower_components/materialize/dist/js/materialize.js"></script>
+    <script src="../bower_components/angular-materialize/src/angular-materialize.js"></script>
+    <script src="../bower_components/threejs/build/three.min.js"></script>
+    <script src="../bower_components/angular-threejs-al/dist/angular-threejs-al.js"></script>
+    <script src="vendor/DragControls.js"></script>
+    <script src="vendor/TrackballControls.js"></script>
+    <!-- endinject -->
+
+    <!-- application -->
+
+    <!-- inject:js -->
+    <script src="filemaps/filemaps.module.js"></script>
+    <script src="filemaps/filemaps.config.js"></script>
+
+    <!-- services -->
+    <script src="filemaps/services/services.module.js"></script>
+    <script src="filemaps/services/logger.service.js"></script>
+    <script src="filemaps/services/data.service.js"></script>
+
+    <!-- browse -->
+    <script src="filemaps/browse/browse.module.js"></script>
+    <script src="filemaps/browse/browse.service.js"></script>
+    <script src="filemaps/browse/browseButton.component.js"></script>
+    <script src="filemaps/browse/browseModal.component.js"></script>
+
+    <!-- map -->
+    <script src="filemaps/map/map.module.js"></script>
+    <script src="filemaps/map/map.service.js"></script>
+    <script src="filemaps/map/selection.service.js"></script>
+    <script src="filemaps/map/newMapModal.component.js"></script>
+    <script src="filemaps/map/mapsModal.component.js"></script>
+    <script src="filemaps/map/mapSettingsModal.component.js"></script>
+
+    <!-- layout -->
+    <script src="filemaps/layout/layout.module.js"></script>
+    <script src="filemaps/layout/nav.component.js"></script>
+    <script src="filemaps/layout/viewer.component.js"></script>
+    <script src="filemaps/layout/aboutModal.component.js"></script>
+
+    <!-- settings -->
+    <script src="filemaps/settings/settings.module.js"></script>
+    <script src="filemaps/settings/generalSettingsModal.component.js"></script>
+
+    <!-- threejs -->
+    <script src="filemaps/threejs/threejs.module.js"></script>
+    <script src="filemaps/threejs/threeViewer.component.js"></script>
+
+    <!-- endinject -->
+</body>
+</html>

@@ -1,0 +1,38 @@
+{
+    "app": "./src/",
+    "html": "./src/**/*.html",
+    "htmltemplates": "./src/filemaps/**/*.html",
+    "vendorjs": [
+        "./bower_components/jquery/dist/jquery.js",
+        "./bower_components/angular/angular.js",
+        "./bower_components/materialize/dist/js/materialize.js",
+        "./bower_components/angular-materialize/src/angular-materialize.js",
+        "./bower_components/threejs/build/three.min.js",
+        "./bower_components/angular-threejs-al/dist/angular-threejs-al.js",
+        "./src/vendor/DragControls.js",
+        "./src/vendor/TrackballControls.js"
+    ],
+    "vendorcss": [
+        "./bower_components/materialize/dist/css/materialize.css",
+        "./bower_components/angular-materialize/css/style.css"
+    ],
+    "css": [
+        "./src/css/filemaps.css"
+    ],
+    "js": [
+        "./src/filemaps/**/*.module.js",
+        "./src/filemaps/**/*.js",
+        "!./src/filemaps/**/*.spec.js"
+    ],
+    "specs": [
+        "./src/filemaps/**/*.spec.js",
+        "./src/test/**/*.spec.js"
+    ],
+    "fonts": [
+        "./bower_components/materialize/fonts/roboto/*.woff2"
+    ],
+    "images": [
+        "./src/images/**/*"
+    ],
+    "build": "./build/"
+}

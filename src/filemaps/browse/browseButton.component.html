@@ -1,0 +1,18 @@
+<div class="fixed-action-btn">
+  <span ng-show="!$ctrl.selection.length">
+    <a class="btn-floating btn-large red" href="#browseModal" modal ready="$ctrl.modalReady()" complete="$ctrl.modalComplete()" open="$ctrl.modalOpen">
+      <i class="large material-icons">add</i>
+    </a>
+  </span>
+
+  <span ng-show="vm.selection.length">
+    <a class="btn-floating btn-large red">
+      <i class="large material-icons">menu</i>
+    </a>
+    <ul>
+      <li><a class="btn-floating red" title="Remove" ng-click="$ctrl.removeSelected()"><i class="material-icons">remove</i></a></li>
+    </ul>
+  </span>
+</div>
+
+<fm-browse-modal on-select="$ctrl.setSelected(selected)"></fm-browse-modal>
