@@ -8,6 +8,7 @@
         "url": "https://github.com/filemaps/filemaps-webui.git"
     },
     "devDependencies": {
+        "bower": "^1.8.0",
         "del": "^2.2.2",
         "gulp": "^3.9.1",
         "gulp-angular-templatecache": "^2.0.0",
