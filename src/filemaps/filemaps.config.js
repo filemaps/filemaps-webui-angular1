@@ -9,9 +9,16 @@
 
     angular.module('filemaps.core', []);
 
-    var filemaps = angular.module('filemaps.core');
+    var module = angular.module('filemaps.core');
 
-    filemaps.config(testConfig);
+    // constants
+    module
+        .constant('DirItemTypes', {
+            FILE: 0,
+            DIR: 1
+        });
+
+    module.config(testConfig);
     testConfig.$inject = ['$httpProvider'];
     function testConfig($httpProvider) {
         console.log('Testing...');

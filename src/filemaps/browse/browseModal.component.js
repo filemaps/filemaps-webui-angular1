@@ -21,9 +21,9 @@
 
     // ------
 
-    BrowseModalController.$inject = ['logger', 'browseService'];
+    BrowseModalController.$inject = ['logger', 'browseService', 'DirItemTypes'];
 
-    function BrowseModalController(logger, browseService) {
+    function BrowseModalController(logger, browseService, DirItemTypes) {
         var $ctrl = this;
         $ctrl.moveToParent = moveToParent;
         $ctrl.currentPath = '';
@@ -44,15 +44,15 @@
         }
 
         function moveToParent() {
-            if ($ctrl.parentPath) {
-                _fetchDir($ctrl.parentPath);
+            if ($ctrl.parent) {
+                _fetchDir($ctrl.parent);
             }
         }
 
         function entryClicked(entry) {
             logger.debug('entry clicked', entry);
-            if (entry.isDir) {
-                _fetchDir(entry.fullPath);
+            if (entry.type === DirItemTypes.DIR) {
+                _fetchDir(entry.path);
             }
             else if (entry.selected) {
                 // remove from selections
@@ -93,8 +93,8 @@
             browseService.readDir(path)
                 .then(function(result) {
                     logger.info('readDir', result);
-                    $ctrl.parentPath = result.data.parentPath;
-                    $ctrl.entries = result.data.files;
+                    $ctrl.parent = result.data.parent;
+                    $ctrl.entries = result.data.contents;
                 }, function(err) {
                     logger.error('Error when fetching directory content', err);
                 });
