@@ -14,7 +14,8 @@
     ],
     "vendorcss": [
         "./bower_components/materialize/dist/css/materialize.css",
-        "./bower_components/angular-materialize/css/style.css"
+        "./bower_components/angular-materialize/css/style.css",
+        "./bower_components/material-design-icons/iconfont/material-icons.css"
     ],
     "css": [
         "./src/css/filemaps.css"
@@ -29,7 +30,8 @@
         "./src/test/**/*.spec.js"
     ],
     "fonts": [
-        "./bower_components/materialize/fonts/roboto/*.woff2"
+        "./bower_components/materialize/fonts/roboto/*.woff2",
+        "./bower_components/material-design-icons/iconfont/*.wof*"
     ],
     "images": [
         "./src/images/**/*"
