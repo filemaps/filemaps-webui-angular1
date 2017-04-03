@@ -1,0 +1,10 @@
+<button type="button" class="btn btn-lg btn-default" ng-click="$ctrl.moveToParent()">
+  <i class="material-icons">keyboard_arrow_up</i>
+</button>
+
+<span>{{ $ctrl.currentPath }}</span>
+
+<div class="collection">
+  <a href ng-repeat="entry in $ctrl.entries | filter:$ctrl.filter:false" class="collection-item" ng-class="{ active: entry.selected }" ng-click="$ctrl.entryClicked(entry)">
+    <span>{{ entry.name }}</span></a>
+</div>

@@ -56,24 +56,26 @@
             });
         }
 
-        function createMap(title, base, filename) {
-            logger.debug('dataService.createMap', title, base, filename);
+        function createMap(title, base, file) {
+            logger.debug('dataService.createMap', title, base, file);
             return $http.post(baseUrl + 'maps', {
                 title: title,
                 base: base,
-                filename: filename,
+                file: file,
             });
         }
 
-        function addResources(mapId, paths) {
-            logger.debug('dataService.addResources', mapId, paths);
+        function addResources(mapId, items) {
+            logger.debug('dataService.addResources', mapId, items);
             var url = baseUrl + 'maps/' + mapId + '/resources';
+            /*
             var items = [];
             for (var i = 0; i < paths.length; i++) {
                 items.push({
                     path: paths[i]
                 });
             }
+            */
             return $http.post(url, {
                 items: items
             });

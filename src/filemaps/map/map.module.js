@@ -8,5 +8,6 @@
     'use strict';
 
     angular.module('filemaps.map', [
+        'ngStorage',
     ]);
 })();

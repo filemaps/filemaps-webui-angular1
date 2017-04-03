@@ -9,6 +9,7 @@
         "./bower_components/angular-materialize/src/angular-materialize.js",
         "./bower_components/threejs/build/three.min.js",
         "./bower_components/angular-threejs-al/dist/angular-threejs-al.js",
+        "./bower_components/ngstorage/ngStorage.js",
         "./src/vendor/DragControls.js",
         "./src/vendor/TrackballControls.js"
     ],

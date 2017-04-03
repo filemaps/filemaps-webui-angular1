@@ -13,18 +13,7 @@
 
       <h5>Base Directory</h5>
 
-      <button type="button" class="btn btn-lg btn-default" ng-click="$ctrl.moveToParent()">
-        <i class="material-icons">keyboard_arrow_up</i>
-      </button>
-
-      <span>{{ vm.currentPath }}</span>
-
-      <div class="collection">
-        <a href="#" ng-repeat="entry in $ctrl.entries" class="collection-item" ng-class="{ active: entry.selected }" ng-click="$ctrl.entryClicked(entry)" ng-if="entry.isDir">
-          <strong>{{ entry.name }}</strong>
-        </a>
-      </div> <!-- .collection -->
-
+      <fm-file-browser path="$ctrl.path" dirs-only="true" on-path-loaded="$ctrl.setPath(path)"></fm-file-browser>
     </div>
     <div class="modal-footer">
       <a class="modal-action modal-close btn-flat" ng-click="$ctrl.create()">

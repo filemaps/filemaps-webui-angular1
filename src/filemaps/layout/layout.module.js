@@ -8,6 +8,7 @@
     'use strict';
 
     angular.module('filemaps.layout', [
-        'ui.materialize'
+        'ui.materialize',
+        'ngStorage',
     ]);
 })();

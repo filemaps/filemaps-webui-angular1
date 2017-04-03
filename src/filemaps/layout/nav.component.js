@@ -20,15 +20,16 @@
 
     // -----
 
-    NavController.$inject = ['$rootScope', 'mapService', 'selectionService', 'logger'];
+    NavController.$inject = ['$rootScope', '$localStorage', 'mapService', 'selectionService', 'logger'];
 
-    function NavController($rootScope, mapService, selectionService, logger) {
+    function NavController($rootScope, $localStorage, mapService, selectionService, logger) {
         var $ctrl = this;
         $ctrl.mapService = mapService;
         $ctrl.aboutModalOpen = false;
         $ctrl.aboutModalReady = aboutModalReady;
         $ctrl.aboutModalComplete = aboutModalComplete;
         $ctrl.newMapModalOpen = false;
+        //($localStorage.lastMapId === undefined);
         $ctrl.newMapModalReady = newMapModalReady;
         $ctrl.newMapModalComplete = newMapModalComplete;
         $ctrl.mapsModalOpen = false;
@@ -60,51 +61,51 @@
         }
 
         function aboutModalComplete() {
-            logger.debug('COMPLETE');
+            logger.debug('about modal complete');
             $rootScope.$emit('fmResumeControls');
         }
 
         function newMapModalReady() {
-            logger.debug('READY');
+            logger.debug('new map modal ready');
             $rootScope.$emit('fmStopControls');
             hideSideNav();
         }
 
         function newMapModalComplete() {
-            logger.debug('COMPLETE');
+            logger.debug('new map modal complete');
             $rootScope.$emit('fmResumeControls');
         }
 
         function mapsModalReady() {
-            logger.debug('READY');
+            logger.debug('maps modal ready');
             $rootScope.$emit('fmStopControls');
             hideSideNav();
         }
 
         function mapsModalComplete() {
-            logger.debug('COMPLETE');
+            logger.debug('maps modal complete');
             $rootScope.$emit('fmResumeControls');
         }
 
         function mapSettingsModalReady() {
-            logger.debug('READY');
+            logger.debug('map settings modal ready');
             $rootScope.$emit('fmStopControls');
             hideSideNav();
         }
 
         function mapSettingsModalComplete() {
-            logger.debug('COMPLETE');
+            logger.debug('map settings modal complete');
             $rootScope.$emit('fmResumeControls');
         }
 
         function generalSettingsModalReady() {
-            logger.debug('READY');
+            logger.debug('general settings modal ready');
             $rootScope.$emit('fmStopControls');
             hideSideNav();
         }
 
         function generalSettingsModalComplete() {
-            logger.debug('COMPLETE');
+            logger.debug('general settings modal complete');
             $rootScope.$emit('fmResumeControls');
         }
 

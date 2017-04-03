@@ -11,9 +11,9 @@
         .module('filemaps.map')
         .factory('mapService', mapService);
 
-    mapService.$inject = ['$rootScope', 'dataService', 'logger'];
+    mapService.$inject = ['$rootScope', '$localStorage', 'dataService', 'logger'];
 
-    function mapService($rootScope, dataService, logger) {
+    function mapService($rootScope, $localStorage, dataService, logger) {
         var current = {
             map: null,
         };
@@ -41,7 +41,13 @@
         // -----
 
         function init() {
-            useMap(1);
+            //useMap(1);
+            if ($localStorage.lastMapId) {
+                logger.debug('mapService init: last map id:', $localStorage.lastMapId);
+            }
+            else {
+                logger.debug('mapService init: no last map id');
+            }
         }
 
         function useMap(mapId) {

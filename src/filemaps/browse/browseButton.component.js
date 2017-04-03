@@ -55,8 +55,8 @@
             var paths = [];
             for (var i = 0; i < selected.length; i++) {
                 paths.push({
-                    isDir: selected[i].isDir,
-                    path: selected[i].fullPath,
+                    type: selected[i].type,
+                    path: selected[i].path,
                     pos: [0, 0, 0],
                 });
             }

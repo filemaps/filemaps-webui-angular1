@@ -45,7 +45,7 @@
 
                 $rootScope.$on('fmAddResource', function(evt, resourceIds) {
                     for (var i = 0; i < resourceIds.length; i++) {
-                        drawResource(mapService.current.map.resources[resourceIds[i]]);
+                        drawResource(resourceIds[i], mapService.current.map.resources[resourceIds[i]]);
                     }
                     update = true;
                 });
@@ -72,7 +72,7 @@
                     logger.debug('Map changed', mapService.current);
                     removeAll();
                     for (var id in mapService.current.map.resources) {
-                        drawResource(mapService.current.map.resources[id]);
+                        drawResource(id, mapService.current.map.resources[id]);
                     }
                     update = true;
                     updateLabels();
@@ -229,7 +229,7 @@
                             if (elapsed < selectionTime) {
                                 // didnt move much, open it
                                 logger.debug('Open resource', mapService.current.map, resource);
-                                dataService.openResource(mapService.current.map.id, resource);
+                                dataService.openResource(mapService.current.map.id, resource.id);
                             }
                             else {
                                 logger.debug('SET SELECTED', resource);
@@ -242,10 +242,10 @@
                         }
                         else {
                             // moved enough to not to be opened
-                            resource.pos[0] = event.object.position.x;
-                            resource.pos[1] = event.object.position.y;
-                            resource.pos[2] = event.object.position.z;
-                            dataService.moveResources(1, [ resource ]);
+                            resource.pos.x = event.object.position.x;
+                            resource.pos.y = event.object.position.y;
+                            resource.pos.z = event.object.position.z;
+                            dataService.updateResources(1, [ resource ]);
                             onCameraChange();
                         }
                         updateLabels();
@@ -255,33 +255,6 @@
 
                     // initialize map
                     mapService.init();
-                }
-
-                function torusInit() {
-                    logger.debug('init2');
-                    container = canvasElement;
-                    viewSize = container.clientWidth;
-
-                    renderer.setSize(viewSize, viewSize);
-                    container.appendChild(renderer.domElement);
-
-                    scene = new THREE.Scene();
-
-                    camera = new THREE.PerspectiveCamera(50, 1, 150, 650);
-                    camera.position.z = 500;
-                    scene.add(camera);
-
-                    geometry = new THREE.TorusKnotGeometry(100, 30, 100, 16);
-
-                    material = new THREE.MeshDepthMaterial({
-                        color: 0x666666,
-                        wireframe: true,
-                        wireframeLinewidth: 1
-                    });
-
-                    torus = new THREE.Mesh(geometry, material);
-                    torus.name = 'Torus';
-                    scene.add(torus);
                 }
 
                 // ---------------------------------
@@ -321,20 +294,21 @@
                     render();
                 }
 
-                function drawResource(resource) {
+                function drawResource(id, resource) {
                     logger.debug('drawResource', resource);
                     var object = new THREE.Mesh(geometry, new THREE.MeshLambertMaterial({
                         color: Math.random() * 0xffffff
                     }));
 
+                    resource.id = parseInt(id);
                     object.userData = {
                         label: null,
                         resource: resource,
                     };
 
-                    object.position.x = resource.pos[0];
-                    object.position.y = resource.pos[1];
-                    object.position.z = resource.pos[2];
+                    object.position.x = resource.pos.x;
+                    object.position.y = resource.pos.y;
+                    object.position.z = resource.pos.z;
 
                     object.rotation.x = 0;
                     object.rotation.y = 0;
@@ -442,7 +416,8 @@
 
                     obj.updateMatrixWorld();
                     vector.setFromMatrixPosition(obj.matrixWorld);
-                    vector.map(camera);
+                    //console.debug('FOO', vector);
+                    //vector.map(camera);
 
                     vector.x = (vector.x * widthHalf) + widthHalf;
                     vector.y = - (vector.y * heightHalf) + heightHalf;
