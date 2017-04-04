@@ -1,0 +1,20 @@
+@font-face {
+  font-family: 'Oxygen';
+  font-style: normal;
+  font-weight: 300;
+  src: local('Oxygen Light'), local('Oxygen-Light'), url(../../bower_components/oxygen-googlefont/Oxygen-Light.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'Oxygen';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Oxygen'), local('Oxygen-Regular'), url(../../bower_components/oxygen-googlefont/Oxygen-Regular.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'Oxygen';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Oxygen Bold'), local('Oxygen-Bold'), url(../../bower_components/oxygen-googlefont/Oxygen-Bold.ttf) format('truetype');
+}

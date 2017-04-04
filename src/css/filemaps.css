@@ -2,6 +2,11 @@ body {
   padding: 0;
   margin: 0;
   overflow: hidden;
+  font-family: 'Oxygen', sans-serif;
+}
+
+nav {
+  background-color: rgb(32, 69, 88);
 }
 
 #the-canvas {

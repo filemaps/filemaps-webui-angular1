@@ -15,6 +15,7 @@
         "angular-threejs-al": "*",
         "material-design-icons": "*",
         "ngstorage": "0.3.11",
+        "oxygen-googlefont": "*",
         "threejs": "r83"
     }
 }
