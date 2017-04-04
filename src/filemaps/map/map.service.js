@@ -60,7 +60,7 @@
         }
 
         function useMapByPath(path) {
-            dataService.getMapByPath(path)
+            dataService.importMap(path)
                 .then(function(result) {
                     service.current.map = result.data;
                     logger.debug('Map loaded', service.current.map);
@@ -71,10 +71,8 @@
         function createMap(name, path, filename) {
             dataService.createMap(name, path, filename)
                 .then(function(result) {
-                    logger.debug('result of create map');
-                    var newMap = result.data.map;
-                    // TODO: something
-                    $rootScope.$emit('fmCreateMap', newMap);
+                    service.current.map = result.data;
+                    $rootScope.$emit('fmCreateMap', service.current.map);
                 });
         }
 

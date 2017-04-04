@@ -9,6 +9,7 @@
 
     var component = {
         bindings: {
+            mapsModalOpen: '=',
         },
         controller: NavController,
         templateUrl: 'filemaps/layout/nav.component.html'
@@ -32,7 +33,7 @@
         //($localStorage.lastMapId === undefined);
         $ctrl.newMapModalReady = newMapModalReady;
         $ctrl.newMapModalComplete = newMapModalComplete;
-        $ctrl.mapsModalOpen = false;
+        //$ctrl.mapsModalOpen = false;
         $ctrl.mapsModalReady = mapsModalReady;
         $ctrl.mapsModalComplete = mapsModalComplete;
         $ctrl.mapSettingsModalOpen = false;

@@ -6,5 +6,6 @@
 
 <div class="collection">
   <a href ng-repeat="entry in $ctrl.entries | filter:$ctrl.filter:false" class="collection-item" ng-class="{ active: entry.selected }" ng-click="$ctrl.entryClicked(entry)">
+    <i class="material-icons" ng-if="entry.type === 1">folder</i> 
     <span>{{ entry.name }}</span></a>
 </div>

@@ -9,7 +9,7 @@
 
     var component = {
         bindings: {
-            onOpen: '&', // callback
+            onClose: '&',
         },
         controller: MapsModalController,
         templateUrl: 'filemaps/map/mapsModal.component.html'
@@ -25,31 +25,15 @@
 
     function MapsModalController(logger, dataService, browseService, mapService) {
         var $ctrl = this;
-        $ctrl.name = '';
-        $ctrl.moveToParent = moveToParent;
-        $ctrl.currentPath = '';
+        $ctrl.path = '/tmp';
         $ctrl.mapClicked = mapClicked;
-        $ctrl.entryClicked = entryClicked;
-        $ctrl.create = create;
-        $ctrl.cancel = cancel;
-        $ctrl.parentPath = null;
-        $ctrl.entries = [];
-        $ctrl.selected = [];
+        $ctrl.openFile = openFile;
 
-        init();
-
-        //logger.debug('options', modalOpts);
+        // lifecycle hooks
+        $ctrl.$onInit = init;
 
         function init() {
-            _fetchDir('/tmp');
-            //_fetchDir(modalOpts.defPath);
             _fetchMaps();
-        }
-
-        function moveToParent() {
-            if ($ctrl.parentPath) {
-                _fetchDir($ctrl.parentPath);
-            }
         }
 
         function mapClicked(map) {
@@ -57,54 +41,9 @@
             mapService.useMap(map.id);
         }
 
-        function entryClicked(entry) {
-            logger.debug('entry clicked', entry);
-            if (entry.isDir) {
-                _fetchDir(entry.fullPath);
-            }
-            else if (entry.isMapFile) {
-                mapService.useMapByPath(entry.fullPath);
-                //entry.selected = false;
-            }
-            /*
-            else {
-                vm.selected.push(entry);
-                entry.selected = true;
-            }
-            */
-        }
-
-        function create() {
-            logger.debug('New Map Modal: Create new map');
-            /*
-            var selected = [];
-            for (var i = 0; i < vm.entries.length; i++) {
-                if (vm.entries[i].selected) {
-                    selected.push(vm.entries[i]);
-                }
-            }
-            */
-            $ctrl.onCreate({
-                name: $ctrl.name,
-                path: $ctrl.currentPath,
-            });
-        }
-
-        function cancel() {
-            logger.debug('cancel');
-            //$uibModalInstance.dismiss();
-        }
-
-        function _fetchDir(path) {
-            $ctrl.currentPath = path;
-            browseService.readDir(path)
-                .then(function(result) {
-                    logger.info('readDir', result);
-                    $ctrl.parentPath = result.data.parentPath;
-                    $ctrl.entries = result.data.files;
-                }, function(err) {
-                    logger.error('Error when fetching directory content', err);
-                });
+        function openFile(entry) {
+            mapService.useMapByPath(entry.path);
+            $ctrl.onClose();
         }
 
         function _fetchMaps() {

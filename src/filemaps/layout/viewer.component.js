@@ -24,6 +24,9 @@
         $ctrl.createMap = createMap;
         $ctrl.openMap = openMap;
 
+        $ctrl.mapsModalOpen = false;
+        $ctrl.closeMapsModal = closeMapsModal;
+
         function createMap(name, path) {
             logger.debug('Create new map', name, path);
             mapService.createMap(name, path, 'map.filemap');
@@ -31,6 +34,11 @@
 
         function openMap(id) {
             logger.debug('Open map', id);
+        }
+
+        function closeMapsModal() {
+            logger.debug('Close maps modal');
+            $ctrl.mapsModalOpen = false;
         }
     }
 })();

@@ -11,7 +11,9 @@
         bindings: {
             initPath: '<path',
             dirsOnly: '<', // one-way binding
+            filemapsOnly: '<',
             onPathLoaded: '&',
+            onFileClick: '&',
             onSelect: '&',
         },
         controller: FileBrowserController,
@@ -46,6 +48,9 @@
             if ($ctrl.dirsOnly) {
                 $ctrl.filter.type = DirItemTypes.DIR;
             }
+            else if ($ctrl.filemapsOnly) {
+                $ctrl.filter = filterFilemaps;
+            }
             //_fetchDir(modalOpts.defPath);
         }
 
@@ -60,14 +65,20 @@
             if (entry.type === DirItemTypes.DIR) {
                 _fetchDir(entry.path);
             }
-            else if (entry.selected) {
-                // remove from selections
-                entry.selected = false;
+            else if ($ctrl.onFileClick) {
+                $ctrl.onFileClick({ entry: entry });
             }
             else {
-                $ctrl.selected.push(entry);
-                entry.selected = true;
-            }
+                // toggle file selection
+                if (entry.selected) {
+                    // remove from selections
+                    entry.selected = false;
+                }
+                else {
+                    $ctrl.selected.push(entry);
+                    entry.selected = true;
+                }
+            }1
         }
 
         function select() {
@@ -100,5 +111,9 @@
                 });
         }
 
+        function filterFilemaps(entry, index, arr) {
+            return (entry.type === DirItemTypes.DIR ||
+                    entry.name.match(/\.filemap$/));
+        }
     }
 })();
