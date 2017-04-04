@@ -9,6 +9,10 @@ nav {
   background-color: rgb(32, 69, 88);
 }
 
+.btn-floating {
+  background-color: rgb(32, 69, 88);
+}
+
 #the-canvas {
   position: absolute;
   top: 0;

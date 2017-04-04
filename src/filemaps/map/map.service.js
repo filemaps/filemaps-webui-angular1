@@ -11,9 +11,9 @@
         .module('filemaps.map')
         .factory('mapService', mapService);
 
-    mapService.$inject = ['$rootScope', '$localStorage', 'dataService', 'logger'];
+    mapService.$inject = ['$rootScope', '$localStorage', '$window', 'dataService', 'logger'];
 
-    function mapService($rootScope, $localStorage, dataService, logger) {
+    function mapService($rootScope, $localStorage, $window, dataService, logger) {
         var current = {
             map: null,
         };
@@ -56,6 +56,7 @@
                     service.current.map = result.data;
                     logger.debug('Map loaded', service.current.map);
                     $rootScope.$emit('fmChangeMap', service.current.map.id);
+                    $window.document.title = service.current.map.title + ' - File Maps';
                 });
         }
 

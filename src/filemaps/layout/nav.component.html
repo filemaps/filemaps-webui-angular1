@@ -32,7 +32,9 @@
 
       <!-- map settings -->
       <a href="#mapSettingsModal" class="brand-logo center" modal ready="$ctrl.mapSettingsModalReady()" complete="$ctrl.mapSettingsModalComplete()" open="$ctrl.mapSettingsModalOpen" title="Map Settings">
-        {{ $ctrl.mapService.current.map.title }}</a>
+        <span ng-show="!$ctrl.mapService.current.map">File Maps</span>
+        <span ng-show="$ctrl.mapService.current.map">{{ $ctrl.mapService.current.map.title }}</span>
+      </a>
 
       <a href="#" data-activates="nav-mobile" class="button-collapse" data-sidenav="left" data-menuwidth="250" id="side-nav-button">
         <i class="material-icons">menu</i></a>
