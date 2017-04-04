@@ -37,12 +37,15 @@
         });
 
         function modalReady() {
-            logger.debug('READY');
+            logger.debug('browse modal ready');
             $rootScope.$emit('fmStopControls');
+            if ($ctrl.modalApi) {
+                $ctrl.modalApi.modalReady();
+            }
         }
 
         function modalComplete() {
-            logger.debug('COMPLETE');
+            logger.debug('browse modal complete');
             $rootScope.$emit('fmResumeControls');
         }
 

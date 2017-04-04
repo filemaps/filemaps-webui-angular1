@@ -10,6 +10,7 @@
     var component = {
         bindings: {
             onSelect: '&', // callback
+            modalApi: '=',
         },
         controller: BrowseModalController,
         templateUrl: 'filemaps/browse/browseModal.component.html'
@@ -25,79 +26,48 @@
 
     function BrowseModalController(logger, browseService, DirItemTypes) {
         var $ctrl = this;
-        $ctrl.moveToParent = moveToParent;
-        $ctrl.currentPath = '';
-        $ctrl.entryClicked = entryClicked;
+
+        var selected = [];
+
+        $ctrl.path = '/tmp';
+        $ctrl.selectEntry = selectEntry;
+        $ctrl.unselectEntry = unselectEntry;
         $ctrl.select = select;
-        $ctrl.cancel = cancel;
-        $ctrl.parentPath = null;
-        $ctrl.entries = [];
-        $ctrl.selected = [];
 
-        init();
-
-        //logger.debug('options', modalOpts);
+        $ctrl.$onInit = init;
 
         function init() {
-            _fetchDir('/tmp');
-            //_fetchDir(modalOpts.defPath);
+            // provide api for parent component
+            $ctrl.modalApi = {};
+            $ctrl.modalApi.modalReady = modalReady;
         }
 
-        function moveToParent() {
-            if ($ctrl.parent) {
-                _fetchDir($ctrl.parent);
+        function modalReady() {
+            if ($ctrl.browserApi) {
+                $ctrl.browserApi.reset();
             }
         }
 
-        function entryClicked(entry) {
-            logger.debug('entry clicked', entry);
-            if (entry.type === DirItemTypes.DIR) {
-                _fetchDir(entry.path);
-            }
-            else if (entry.selected) {
-                // remove from selections
-                entry.selected = false;
-            }
-            else {
-                $ctrl.selected.push(entry);
-                entry.selected = true;
+        function selectEntry(entry) {
+            selected.push(entry);
+        }
+
+        function unselectEntry(entry) {
+            for (var i = 0; i < selected.length; i++) {
+                if (selected[i].path === entry.path) {
+                    selected.splice(i);
+                    break;
+                }
             }
         }
 
         function select() {
-            logger.debug('File(s) selected');
-            var selected = [];
-            for (var i = 0; i < $ctrl.entries.length; i++) {
-                if ($ctrl.entries[i].selected) {
-                    selected.push($ctrl.entries[i]);
-                }
-            }
-            $ctrl.onSelect({
-                selected: selected
-            });
-
-            /*
-            $uibModalInstance.close({
-                selected: selected,
-            });
-            */
-        }
-
-        function cancel() {
-            logger.debug('cancel');
-            //$uibModalInstance.dismiss();
-        }
-
-        function _fetchDir(path) {
-            $ctrl.currentPath = path;
-            browseService.readDir(path)
-                .then(function(result) {
-                    logger.info('readDir', result);
-                    $ctrl.parent = result.data.parent;
-                    $ctrl.entries = result.data.contents;
-                }, function(err) {
-                    logger.error('Error when fetching directory content', err);
+            logger.debug(selected.length, 'file(s) selected');
+            if (selected.length) {
+                $ctrl.onSelect({
+                    selected: selected
                 });
+            }
         }
     }
 })();

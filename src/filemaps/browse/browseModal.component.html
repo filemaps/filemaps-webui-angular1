@@ -2,6 +2,9 @@
   <div class="modal-content">
     <h4>Add File</h4>
 
+    <fm-file-browser path="$ctrl.path" on-select="$ctrl.selectEntry(entry)" on-unselect="$ctrl.unselectEntry(entry)" browser-api="$ctrl.browserApi"></fm-file-browser>
+
+    <!--
     <button type="button" class="btn btn-lg btn-default" ng-click="$ctrl.moveToParent()">
       <i class="material-icons">keyboard_arrow_up</i>
     </button>
@@ -13,7 +16,8 @@
         <strong ng-show="entry.isDir">{{ entry.name }}</strong>
         <span ng-show="!entry.isDir">{{ entry.name }}</span>
       </a>
-    </div> <!-- .collection -->
+    </div>
+    -->
 
   </div>
   <div class="modal-footer">

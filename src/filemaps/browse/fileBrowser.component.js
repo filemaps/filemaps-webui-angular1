@@ -13,8 +13,10 @@
             dirsOnly: '<', // one-way binding
             filemapsOnly: '<',
             onPathLoaded: '&',
-            onFileClick: '&',
+            onFileClick: '&?',
             onSelect: '&',
+            onUnselect: '&',
+            browserApi: '=?',
         },
         controller: FileBrowserController,
         templateUrl: 'filemaps/browse/fileBrowser.component.html'
@@ -30,20 +32,25 @@
 
     function FileBrowserController(browseService, DirItemTypes, logger) {
         var $ctrl = this;
+
+        // object for all selected paths
+        var selected = {};
+
         $ctrl.moveToParent = moveToParent;
         $ctrl.currentPath = '';
         $ctrl.entryClicked = entryClicked;
-        $ctrl.select = select;
-        $ctrl.cancel = cancel;
         $ctrl.parentPath = null;
         $ctrl.entries = [];
-        $ctrl.selected = [];
         $ctrl.filter = {};
 
         // lifecycle hooks
         $ctrl.$onInit = init;
 
         function init() {
+            // provide api for parent component
+            $ctrl.browserApi = {};
+            $ctrl.browserApi.reset = reset;
+
             _fetchDir($ctrl.initPath);
             if ($ctrl.dirsOnly) {
                 $ctrl.filter.type = DirItemTypes.DIR;
@@ -51,7 +58,11 @@
             else if ($ctrl.filemapsOnly) {
                 $ctrl.filter = filterFilemaps;
             }
-            //_fetchDir(modalOpts.defPath);
+        }
+
+        function reset() {
+            selected = {};
+            _fetchDir($ctrl.currentPath);
         }
 
         function moveToParent() {
@@ -73,29 +84,16 @@
                 if (entry.selected) {
                     // remove from selections
                     entry.selected = false;
+                    $ctrl.onUnselect({ entry: entry });
+                    delete selected[entry.path];
                 }
                 else {
-                    $ctrl.selected.push(entry);
+                    //$ctrl.selected.push(entry);
                     entry.selected = true;
-                }
-            }1
-        }
-
-        function select() {
-            logger.debug('File(s) selected');
-            var selected = [];
-            for (var i = 0; i < $ctrl.entries.length; i++) {
-                if ($ctrl.entries[i].selected) {
-                    selected.push($ctrl.entries[i]);
+                    $ctrl.onSelect({ entry: entry });
+                    selected[entry.path] = true;
                 }
             }
-            $ctrl.onSelect({
-                selected: selected
-            });
-        }
-
-        function cancel() {
-            logger.debug('cancel');
         }
 
         function _fetchDir(path) {
@@ -105,7 +103,15 @@
                     $ctrl.onPathLoaded({ path: path });
                     logger.info('readDir', result);
                     $ctrl.parent = result.data.parent;
-                    $ctrl.entries = result.data.contents;
+                    $ctrl.entries = result.data.contents || [];
+                    logger.debug('already selected', selected);
+
+                    // check if some entries have already been selected
+                    for (var i = 0; i < $ctrl.entries.length; i++) {
+                        if (selected[$ctrl.entries[i].path]) {
+                            $ctrl.entries[i].selected = true;
+                        }
+                    }
                 }, function(err) {
                     logger.error('Error when fetching directory content', err);
                 });
