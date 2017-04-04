@@ -81,11 +81,10 @@
             dataService.addResources(map.id, selected)
                 .then(function(result) {
                     var newIds = [];
-                    for (var resourceId in result.data.resources) {
-                        if (resourceId) {
-                            map.resources[resourceId] = result.data.resources[resourceId];
-                            newIds.push(resourceId);
-                        }
+                    for (var i = 0; i < result.data.resources.length; i++) {
+                        var resource = result.data.resources[i];
+                        map.resources[resource.id] = resource;
+                        newIds.push(resource.id);
                     }
                     $rootScope.$emit('fmAddResource', newIds);
                 });

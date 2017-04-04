@@ -28,7 +28,6 @@
         $ctrl.name = '';
         $ctrl.path = '/tmp';
         $ctrl.create = create;
-        $ctrl.cancel = cancel;
         $ctrl.setPath = setPath;
 
         function create() {
@@ -37,10 +36,6 @@
                 name: $ctrl.name,
                 path: $ctrl.path,
             });
-        }
-
-        function cancel() {
-            logger.debug('cancel');
         }
 
         function setPath(path) {

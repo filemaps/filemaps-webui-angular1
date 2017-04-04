@@ -20,9 +20,9 @@
       <div id="recent-maps" class="col s12">
         <h4>Recent Maps</h4>
         <div class="collection">
-          <a href="#" ng-repeat="map in $ctrl.maps" class="collection-item modal-close" ng-click="$ctrl.mapClicked(map)">
-            <span class="title">{{ map.name }}</span>
-            <p>{{ map.file }}</p>
+          <a href="#" ng-repeat="map in $ctrl.maps" class="collection-item avatar modal-close" ng-click="$ctrl.mapClicked(map)">
+            <span class="title">{{ map.title }}</span>
+            <p>{{ map.base }}</p>
           </a>
         </div> <!-- .collection -->
       </div> <!-- #recent-maps -->
