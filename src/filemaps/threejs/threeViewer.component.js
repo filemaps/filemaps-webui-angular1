@@ -339,6 +339,7 @@
 
                     // label
                     var text2 = document.createElement('div');
+                    text2.className = "label-res"
                     text2.style.display = 'none';
                     text2.style.position = 'absolute';
                     text2.style.width = 100;
