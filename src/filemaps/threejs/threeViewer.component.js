@@ -418,20 +418,17 @@
                 }
 
                 function toScreenPosition(obj) {
-                    var vector = new THREE.Vector3();
                     var widthHalf = 0.5*renderer.context.canvas.width;
                     var heightHalf = 0.5*renderer.context.canvas.height;
 
-                    obj.updateMatrixWorld();
-                    vector.setFromMatrixPosition(obj.matrixWorld);
-                    //console.debug('FOO', vector);
-                    //vector.map(camera);
+                    var pos = obj.position.clone();
+                    pos.project(camera);
+                    pos.x = (pos.x * widthHalf) + widthHalf;
+                    pos.y = - (pos.y * heightHalf) + heightHalf;
 
-                    vector.x = (vector.x * widthHalf) + widthHalf;
-                    vector.y = - (vector.y * heightHalf) + heightHalf;
                     return {
-                        x: vector.x,
-                        y: vector.y
+                        x: pos.x,
+                        y: pos.y
                     };
                 }
             //});
