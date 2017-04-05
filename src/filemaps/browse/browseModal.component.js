@@ -43,6 +43,8 @@
         }
 
         function modalReady() {
+            // reset selections
+            selected = [];
             if ($ctrl.browserApi) {
                 $ctrl.browserApi.reset();
             }

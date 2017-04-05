@@ -45,7 +45,7 @@
 
                 $rootScope.$on('fmAddResource', function(evt, resourceIds) {
                     for (var i = 0; i < resourceIds.length; i++) {
-                        drawResource(resourceIds[i], mapService.current.map.resources[resourceIds[i]]);
+                        drawResource(mapService.current.map.resources[resourceIds[i]]);
                     }
                     update = true;
                 });
@@ -72,7 +72,7 @@
                     logger.debug('Map changed', mapService.current);
                     removeAll();
                     for (var id in mapService.current.map.resources) {
-                        drawResource(id, mapService.current.map.resources[id]);
+                        drawResource(mapService.current.map.resources[id]);
                     }
                     update = true;
                     updateLabels();
@@ -191,8 +191,17 @@
                         objects.push(object);
                     }
 
+                    /*
+                    // test sphere object
+                    var sphere = new THREE.Mesh(
+                            new THREE.SphereGeometry(30, 32, 32),
+                            new THREE.MeshBasicMaterial({ color: 0xffff00 })
+                        );
+                    scene.add(sphere);
+                    sphere.position.set(0, 70, 2000);
+                    */
 
-                    renderer.setClearColor(0xf0f0f0);
+                    renderer.setClearColor(0xe0e0e0);
                     renderer.setPixelRatio(1);
                     //renderer.setPixelRatio(window.devicePixelRatio);
                     //renderer.setSize(viewSize, viewSize);
@@ -294,13 +303,12 @@
                     render();
                 }
 
-                function drawResource(id, resource) {
+                function drawResource(resource) {
                     logger.debug('drawResource', resource);
                     var object = new THREE.Mesh(geometry, new THREE.MeshLambertMaterial({
                         color: Math.random() * 0xffffff
                     }));
 
-                    resource.id = parseInt(id);
                     object.userData = {
                         label: null,
                         resource: resource,

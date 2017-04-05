@@ -60,7 +60,7 @@
                 paths.push({
                     type: selected[i].type,
                     path: selected[i].path,
-                    pos: [0, 0, 0],
+                    pos: { x: 0, y: 0, z: 20 },
                 });
             }
             mapService.addResources(paths);

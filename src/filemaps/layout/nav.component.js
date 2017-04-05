@@ -43,7 +43,6 @@
         $ctrl.generalSettingsModalReady = generalSettingsModalReady;
         $ctrl.generalSettingsModalComplete = generalSettingsModalComplete;
 
-        $ctrl.setSelected = setSelected;
         $ctrl.rootScope = $rootScope;
         $ctrl.removeSelected = removeSelected;
         $ctrl.hideSideNav = hideSideNav;
@@ -110,26 +109,9 @@
             $rootScope.$emit('fmResumeControls');
         }
 
-        function setSelected(selected) {
-            logger.debug('set selected', selected);
-            addSelectedResources(selected);
-        }
-
         function hideSideNav() {
             // materializecss angular doesn't support hiding sideNav
             $('#side-nav-button').sideNav('hide');
-        }
-
-        function addSelectedResources(selected) {
-            var paths = [];
-            for (var i = 0; i < selected.length; i++) {
-                paths.push({
-                    isDir: selected[i].isDir,
-                    path: selected[i].fullPath,
-                    pos: [0, 0, 0],
-                });
-            }
-            mapService.addResources(paths);
         }
 
         function removeSelected() {
