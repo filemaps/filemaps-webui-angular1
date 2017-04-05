@@ -117,7 +117,7 @@
                     scene.add(new THREE.AmbientLight(0x505050));
 
                     var light = new THREE.SpotLight(0xffffff, 1.5);
-                    light.position.set(0, 500, 2000);
+                    light.position.set(0, 70, 2000);
                     light.castShadow = true;
 
                     light.shadow = new THREE.LightShadow(new THREE.PerspectiveCamera(90, 1, 200, 10000));
@@ -129,7 +129,7 @@
                     scene.add(light);
 
                     // Ground
-                    var groundMaterial = new THREE.MeshPhongMaterial({ color: 0xa0adaf });
+                    var groundMaterial = new THREE.MeshLambertMaterial({ color: 0xffffff });
                     var ground = new THREE.Mesh(
                         new THREE.PlaneBufferGeometry(5000, 5000), groundMaterial
                     );

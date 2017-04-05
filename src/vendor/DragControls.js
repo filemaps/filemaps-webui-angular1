@@ -15,7 +15,8 @@ THREE.DragControls = function ( _objects, _camera, _domElement ) {
 
 	}
 
-	var _plane = new THREE.Plane();
+        // set plane static
+	var _plane = new THREE.Plane(new THREE.Vector3(0, 0, 1));
 	var _raycaster = new THREE.Raycaster();
 
 	var _mouse = new THREE.Vector2();
@@ -95,7 +96,7 @@ THREE.DragControls = function ( _objects, _camera, _domElement ) {
 
 			var object = intersects[ 0 ].object;
 
-			_plane.setFromNormalAndCoplanarPoint( _camera.getWorldDirection( _plane.normal ), object.position );
+			//_plane.setFromNormalAndCoplanarPoint( _camera.getWorldDirection( _plane.normal ), object.position );
 
 			if ( _hovered !== object ) {
 
