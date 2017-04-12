@@ -10,6 +10,7 @@
     var component = {
         bindings: {
             onCreate: '&', // callback
+            modalApi: '=',
         },
         controller: NewMapModalController,
         templateUrl: 'filemaps/map/newMapModal.component.html'
@@ -26,9 +27,23 @@
     function NewMapModalController(logger, browseService) {
         var $ctrl = this;
         $ctrl.name = '';
-        $ctrl.path = '/tmp';
         $ctrl.create = create;
         $ctrl.setPath = setPath;
+
+        // lifecycle hooks
+        $ctrl.$onInit = init;
+
+        function init() {
+            // provide api for parent component
+            $ctrl.modalApi = {};
+            $ctrl.modalApi.modalReady = modalReady;
+        }
+
+        function modalReady() {
+            if ($ctrl.browserApi) {
+                $ctrl.browserApi.reset();
+            }
+        }
 
         function create() {
             logger.debug('New Map Modal: Create new map');

@@ -9,7 +9,7 @@
 
     var component = {
         bindings: {
-            initPath: '<path',
+            initPath: '=path',
             dirsOnly: '<', // one-way binding
             filemapsOnly: '<',
             onPathLoaded: '&',
@@ -28,16 +28,15 @@
 
     // -----
 
-    FileBrowserController.$inject = ['browseService', 'DirItemTypes', 'logger'];
+    FileBrowserController.$inject = ['browseService', 'infoService', 'DirItemTypes', 'logger'];
 
-    function FileBrowserController(browseService, DirItemTypes, logger) {
+    function FileBrowserController(browseService, infoService, DirItemTypes, logger) {
         var $ctrl = this;
 
         // object for all selected paths
         var selected = {};
 
         $ctrl.moveToParent = moveToParent;
-        $ctrl.currentPath = '';
         $ctrl.entryClicked = entryClicked;
         $ctrl.parentPath = null;
         $ctrl.entries = [];
@@ -51,7 +50,6 @@
             $ctrl.browserApi = {};
             $ctrl.browserApi.reset = reset;
 
-            _fetchDir($ctrl.initPath);
             if ($ctrl.dirsOnly) {
                 $ctrl.filter.type = DirItemTypes.DIR;
             }
@@ -61,6 +59,9 @@
         }
 
         function reset() {
+            if (!$ctrl.currentPath) {
+                $ctrl.currentPath = $ctrl.initPath || infoService.info.data.homeDir;
+            }
             selected = {};
             _fetchDir($ctrl.currentPath);
         }

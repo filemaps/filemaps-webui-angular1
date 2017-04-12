@@ -10,6 +10,7 @@
     var component = {
         bindings: {
             onClose: '&',
+            modalApi: '=',
         },
         controller: MapsModalController,
         templateUrl: 'filemaps/map/mapsModal.component.html'
@@ -25,7 +26,6 @@
 
     function MapsModalController(logger, dataService, browseService, mapService) {
         var $ctrl = this;
-        $ctrl.path = '/tmp';
         $ctrl.mapClicked = mapClicked;
         $ctrl.openFile = openFile;
 
@@ -33,7 +33,15 @@
         $ctrl.$onInit = init;
 
         function init() {
-            _fetchMaps();
+            // provide api for parent component
+            $ctrl.modalApi = {};
+            $ctrl.modalApi.modalReady = modalReady;
+        }
+
+        function modalReady() {
+            if ($ctrl.browserApi) {
+                $ctrl.browserApi.reset();
+            }
         }
 
         function mapClicked(map) {
@@ -44,16 +52,6 @@
         function openFile(entry) {
             mapService.useMapByPath(entry.path);
             $ctrl.onClose();
-        }
-
-        function _fetchMaps() {
-            dataService.getMaps()
-                .then(function(result) {
-                    logger.info('get maps', result);
-                    $ctrl.maps = result.data.maps;
-                }, function(err) {
-                    logger.error('Error when reading maps', err);
-                });
         }
     }
 })();

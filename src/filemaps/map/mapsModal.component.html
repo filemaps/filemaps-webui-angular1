@@ -30,7 +30,7 @@
       <!-- browse maps -->
       <div id="browse-maps" class="col s12">
         <h4>Browse Maps</h4>
-        <fm-file-browser path="$ctrl.path" filemaps-only="true" on-file-click="$ctrl.openFile(entry)"></fm-file-browser>
+        <fm-file-browser filemaps-only="true" on-file-click="$ctrl.openFile(entry)" browser-api="$ctrl.browserApi"></fm-file-browser>
       </div> <!-- #browse-maps -->
 
     </div> <!-- .row -->

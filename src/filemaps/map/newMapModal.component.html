@@ -13,7 +13,7 @@
 
       <h5>Base Directory</h5>
 
-      <fm-file-browser path="$ctrl.path" dirs-only="true" on-path-loaded="$ctrl.setPath(path)"></fm-file-browser>
+      <fm-file-browser dirs-only="true" on-path-loaded="$ctrl.setPath(path)" browser-api="$ctrl.browserApi"></fm-file-browser>
     </div>
     <div class="modal-footer">
       <a class="modal-action modal-close btn-flat" ng-click="$ctrl.create()">

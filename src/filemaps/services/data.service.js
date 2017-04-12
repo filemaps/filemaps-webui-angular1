@@ -18,6 +18,7 @@
         var baseUrl = '/api/';
 
         var service = {
+            getInfo: getInfo,
             readDir: readDir,
             getMaps: getMaps,
             getMap: getMap,
@@ -31,6 +32,10 @@
         return service;
 
         // -----
+
+        function getInfo() {
+            return $http.get(baseUrl + 'info');
+        }
 
         function readDir(path) {
             logger.debug('dataService.readDir', path);

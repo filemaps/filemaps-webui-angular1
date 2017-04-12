@@ -22,9 +22,9 @@
 
     // ------
 
-    BrowseModalController.$inject = ['logger', 'browseService', 'DirItemTypes'];
+    BrowseModalController.$inject = ['logger', 'browseService', 'mapService', 'DirItemTypes'];
 
-    function BrowseModalController(logger, browseService, DirItemTypes) {
+    function BrowseModalController(logger, browseService, mapService, DirItemTypes) {
         var $ctrl = this;
 
         var selected = [];
