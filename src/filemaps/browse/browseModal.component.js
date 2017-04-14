@@ -22,19 +22,23 @@
 
     // ------
 
-    BrowseModalController.$inject = ['logger', 'browseService', 'mapService', 'DirItemTypes'];
+    BrowseModalController.$inject = ['$rootScope', 'logger', 'browseService', 'mapService', 'DirItemTypes'];
 
-    function BrowseModalController(logger, browseService, mapService, DirItemTypes) {
+    function BrowseModalController($rootScope, logger, browseService, mapService, DirItemTypes) {
         var $ctrl = this;
 
         var selected = [];
 
-        $ctrl.path = '/tmp';
         $ctrl.selectEntry = selectEntry;
         $ctrl.unselectEntry = unselectEntry;
         $ctrl.select = select;
 
         $ctrl.$onInit = init;
+
+        $rootScope.$on('fmChangeMap', function(evt) {
+            // set browser to base path
+            $ctrl.browserApi.setPath(mapService.current.map.base);
+        });
 
         function init() {
             // provide api for parent component

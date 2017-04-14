@@ -1,24 +1,7 @@
 <div id="browseModal" class="modal modal-fixed-footer">
   <div class="modal-content">
     <h4>Add File</h4>
-
-    <fm-file-browser path="$ctrl.path" on-select="$ctrl.selectEntry(entry)" on-unselect="$ctrl.unselectEntry(entry)" browser-api="$ctrl.browserApi"></fm-file-browser>
-
-    <!--
-    <button type="button" class="btn btn-lg btn-default" ng-click="$ctrl.moveToParent()">
-      <i class="material-icons">keyboard_arrow_up</i>
-    </button>
-
-    <span>{{ $ctrl.currentPath }}</span>
-
-    <div class="collection">
-      <a href="#" ng-repeat="entry in $ctrl.entries" class="collection-item" ng-class="{ active: entry.selected }" ng-click="$ctrl.entryClicked(entry)">
-        <strong ng-show="entry.isDir">{{ entry.name }}</strong>
-        <span ng-show="!entry.isDir">{{ entry.name }}</span>
-      </a>
-    </div>
-    -->
-
+    <fm-file-browser on-select="$ctrl.selectEntry(entry)" on-unselect="$ctrl.unselectEntry(entry)" browser-api="$ctrl.browserApi"></fm-file-browser>
   </div>
   <div class="modal-footer">
     <a class="modal-action modal-close btn-flat" ng-click="$ctrl.select()">

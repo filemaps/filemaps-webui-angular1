@@ -9,7 +9,6 @@
 
     var component = {
         bindings: {
-            initPath: '=path',
             dirsOnly: '<', // one-way binding
             filemapsOnly: '<',
             onPathLoaded: '&',
@@ -47,8 +46,10 @@
 
         function init() {
             // provide api for parent component
-            $ctrl.browserApi = {};
-            $ctrl.browserApi.reset = reset;
+            $ctrl.browserApi = {
+                reset: reset,
+                setPath: setPath,
+            };
 
             if ($ctrl.dirsOnly) {
                 $ctrl.filter.type = DirItemTypes.DIR;
@@ -60,10 +61,14 @@
 
         function reset() {
             if (!$ctrl.currentPath) {
-                $ctrl.currentPath = $ctrl.initPath || infoService.info.data.homeDir;
+                $ctrl.currentPath = infoService.info.data.homeDir;
             }
             selected = {};
             _fetchDir($ctrl.currentPath);
+        }
+
+        function setPath(path) {
+            $ctrl.currentPath = path;
         }
 
         function moveToParent() {
