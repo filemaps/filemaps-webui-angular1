@@ -22,9 +22,9 @@
 
     // ------
 
-    MapsModalController.$inject = ['logger', 'dataService', 'browseService', 'mapService'];
+    MapsModalController.$inject = ['logger', 'dataService', 'mapService'];
 
-    function MapsModalController(logger, dataService, browseService, mapService) {
+    function MapsModalController(logger, dataService, mapService) {
         var $ctrl = this;
         $ctrl.mapClicked = mapClicked;
         $ctrl.openFile = openFile;
@@ -40,12 +40,20 @@
 
         function modalReady() {
             if ($ctrl.browserApi) {
+
+                // update recent maps
+                dataService.getMaps().then(function(result) {
+                    $ctrl.maps = result.data.maps;
+                });
+
+                // update browser
                 $ctrl.browserApi.reset();
             }
         }
 
         function mapClicked(map) {
             logger.debug('map clicked', map);
+            $ctrl.onClose();
             mapService.useMap(map.id);
         }
 
