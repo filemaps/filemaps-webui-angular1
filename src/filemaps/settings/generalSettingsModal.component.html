@@ -2,10 +2,31 @@
   <form>
     <div class="modal-content">
       <h4>General Settings</h4>
+      <div class="section">
+        <h5>Text Editor</h5>
+        <p ng-repeat="fileApp in $ctrl.fileApps">
+        <input name="appTextEditor" type="radio" id="fileapp-{{ fileApp.id }}" ng-model="$ctrl.config.textEditor" ng-value="fileApp.id">
+          <label for="fileapp-{{ fileApp.id }}">{{ fileApp.name }}</label>
+        </p>
+        <p>
+          <input name="appTextEditor" type="radio" id="fileapp-custom1" ng-model="$ctrl.config.textEditor" value="custom1">
+          <label for="fileapp-custom1">Custom</label>
+        </p>
+        <div class="row">
+          <div class="input-field col s12">
+            <input ng-model="$ctrl.config.textEditorCustom1Cmd" id="cmd" type="text" required>
+            <label for="cmd">Custom command</label>
+          </div>
+        </div> <!-- .row -->
+
+      </div>
     </div>
     <div class="modal-footer">
-      <a class=" modal-action modal-close waves-effect waves-green btn-flat" ng-click="">
-        Close</a>
+      <a class=" modal-action modal-close waves-effect waves-red btn-flat" ng-click="$ctrl.save()">
+        Save</a>
+
+      <a class=" modal-action modal-close waves-effect btn-flat">
+        Cancel</a>
     </div>
   </form>
 </div>

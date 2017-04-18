@@ -7,5 +7,7 @@
 (function() {
     'use strict';
 
-    angular.module('filemaps.services', []);
+    angular.module('filemaps.services', [
+        'ngResource'
+    ]);
 })();

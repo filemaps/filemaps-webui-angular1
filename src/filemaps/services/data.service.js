@@ -11,11 +11,17 @@
         .module('filemaps.services')
         .factory('dataService', dataService);
 
-    dataService.$inject = ['$http', 'logger'];
+    dataService.$inject = ['$http', '$resource', 'logger'];
 
-    function dataService($http, logger) {
+    function dataService($http, $resource, logger) {
 
         var baseUrl = '/api/';
+
+        var Config = $resource(baseUrl + 'config', null, {
+            update: {
+                method: 'PUT'
+            }
+        });
 
         var service = {
             getInfo: getInfo,
@@ -28,6 +34,7 @@
             openResource: openResource,
             updateResources: updateResources,
             removeResources: removeResources,
+            getConfig: getConfig,
         };
         return service;
 
@@ -73,14 +80,6 @@
         function addResources(mapId, items) {
             logger.debug('dataService.addResources', mapId, items);
             var url = baseUrl + 'maps/' + mapId + '/resources';
-            /*
-            var items = [];
-            for (var i = 0; i < paths.length; i++) {
-                items.push({
-                    path: paths[i]
-                });
-            }
-            */
             return $http.post(url, {
                 items: items
             });
@@ -107,6 +106,10 @@
             return $http.post(url, {
                 ids: ids
             });
+        }
+
+        function getConfig() {
+            return Config;
         }
     }
 })();

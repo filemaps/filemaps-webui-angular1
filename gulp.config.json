@@ -5,6 +5,7 @@
     "vendorjs": [
         "./bower_components/jquery/dist/jquery.js",
         "./bower_components/angular/angular.js",
+        "./bower_components/angular-resource/angular-resource.js",
         "./bower_components/materialize/dist/js/materialize.js",
         "./bower_components/angular-materialize/src/angular-materialize.js",
         "./bower_components/threejs/build/three.min.js",

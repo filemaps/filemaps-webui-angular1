@@ -70,6 +70,9 @@
 
         function generalSettingsModalReady() {
             $rootScope.$emit('fmStopControls');
+            if ($ctrl.settingsModalApi) {
+                $ctrl.settingsModalApi.modalReady();
+            }
             _hideSideNav();
         }
 
