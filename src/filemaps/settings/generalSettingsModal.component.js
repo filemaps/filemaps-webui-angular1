@@ -37,7 +37,6 @@
 
         function modalReady() {
             $ctrl.config = Config.get(null, function(response) {
-                logger.debug("JEE", response);
                 $ctrl.config = response.config;
                 $ctrl.fileApps = response.fileApps;
             });
