@@ -2,6 +2,7 @@
 
 ![File Maps Logo](https://codeboy.fi/filemaps_logo.png)
 
+[![Build Status](https://travis-ci.org/filemaps/filemaps-webui.svg?branch=master)](https://travis-ci.org/filemaps/filemaps-webui)
 [![MPLv2 License](https://img.shields.io/badge/license-MPLv2-blue.svg?style=flat-square)](https://www.mozilla.org/MPL/2.0/)
 
 Web UI for File Maps, using [Angular 1][2] and [three.js][3].
