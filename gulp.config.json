@@ -20,7 +20,9 @@
         "./bower_components/material-design-icons/iconfont/material-icons.css"
     ],
     "css": [
-        "./src/css/filemaps.css"
+        "./src/css/filemaps.css",
+        "./src/css/materialize.css",
+        "./src/css/oxygen.css"
     ],
     "js": [
         "./src/filemaps/**/*.module.js",
@@ -33,7 +35,8 @@
     ],
     "fonts": [
         "./bower_components/materialize/fonts/roboto/*.woff2",
-        "./bower_components/material-design-icons/iconfont/*.wof*"
+        "./bower_components/material-design-icons/iconfont/*.wof*",
+        "./bower_components/oxygen-googlefont/*.ttf"
     ],
     "images": [
         "./src/images/**/*"

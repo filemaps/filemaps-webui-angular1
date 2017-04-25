@@ -1,0 +1,26 @@
+language: node_js
+node_js:
+- '7.9'
+script:
+- npm install
+- bower install
+- gulp build
+- mv build filemaps-webui
+- tar cvzf filemaps-webui-build.tar.gz filemaps-webui
+cache:
+  directories:
+  - bower_components
+  - node_modules
+notifications:
+  email:
+  - tuomas.jaakola@iki.fi
+deploy:
+  provider: releases
+  api_key:
+    secure: bHFH3KZj8wRI6cpHWm1pKjXj2OE6upPorOSdJUqQbvQrf7IzcZNbtc/DLPCy5+1ss0HfqoJjNMzanhXhChStnqs+GChYWh0WJgsEGUd5a7//M1QcEWRKmtUXnI8gkSn3W9Eyy5o/UsoNLZsXAWqoLKvqKVLRoW7aClNlPhkcto67WMrku443/2N69P5CJG/PT/MTH8zdtEreCzDiK3l+bhgJ56jztWjC0xnvIy29qcalaSNig7ZLtRlG4IC15HCaSForKj1NqipaRpl3bjbnuknXl6XbsjFKvMRJyJxP8gwV47b7tDmBzsSP1R+TP9ZAaSV6pGsCFoUG+9/mmsQEBDRLM+ROjceBUg89lMUr7V62q9efwyXP0IUDQa+EZeVNA+2ghFl08XTAiSPb6stoxToJ7ctwO37KnZtotff6ptG6RDYZlMLeDOx+vOt3dnmdvBGjbyS12UEh3+CfnguXtAQV+803znkrQHdolXruku+50Z84O0NZi5OEmMelzbtDIMnj1g9dNByN9jMfeDUB5W/Un6pKylGFJecTGc2IWqnAftJGSfYUF0Pe3QDGvUNs7PUi/lOg1umyAgO4iIbeIIA/E2WIuCQ8Gxo2bKKuguWgxLoj4ALowqUlA9Q5pox2FO6WAuEiIBv46TMTCHQJ1t3whbkVjDMyw2QUnUVDbcE=
+  file: filemaps-webui-build.tar.gz
+  skip_cleanup: true
+  on:
+    tags: true
+    all_branches: true
+    repo: filemaps/filemaps-webui

@@ -11,6 +11,7 @@
 var gulp = require('gulp');
 var del = require('del');
 var merge = require('merge-stream');
+
 var paths = require('./gulp.config.json');
 var plugins = require('gulp-load-plugins')();
 var exec = require('child_process').exec;
@@ -92,6 +93,9 @@ gulp.task('css', function() {
     return gulp
         .src(paths.css)
         .pipe(plugins.concat('filemaps.min.css'))
+        // modify font urls
+        .pipe(plugins.replace("../../bower_components/oxygen-googlefont/", "../fonts/"))
+        .pipe(plugins.replace("../fonts/roboto/", "../fonts/"))
         .pipe(plugins.autoprefixer('last 2 version', '> 5%'))
         .pipe(plugins.bytediff.start())
         .pipe(plugins.cssnano())
@@ -109,6 +113,8 @@ gulp.task('vendorcss', function() {
         .src(paths.vendorcss)
         .pipe(vendorFilter)
         .pipe(plugins.concat('vendor.min.css'))
+        // modify font urls
+        .pipe(plugins.replace("MaterialIcons-", "../fonts/MaterialIcons-"))
         .pipe(plugins.bytediff.start())
         .pipe(plugins.cssnano())
         .pipe(plugins.bytediff.stop(bytediffFormatter))
@@ -132,7 +138,7 @@ gulp.task('images', function() {
 gulp.task('fonts', function() {
     return gulp
         .src(paths.fonts)
-        .pipe(gulp.dest(paths.build + 'fonts/roboto'));
+        .pipe(gulp.dest(paths.build + 'fonts'));
 });
 
 /**
@@ -149,6 +155,7 @@ gulp.task('rev-and-inject', ['js', 'vendorjs', 'css', 'vendorcss'], function() {
         .src([].concat(minified, indexHtml)) // add all built min files and html file
         .pipe(minFilter) // filter the stream to minified css and js
         .pipe(plugins.rev()) // create files with rev's
+        .pipe(plugins.revDeleteOriginal()) // delete orig files, leaving minified
         .pipe(gulp.dest(paths.build)) // write the ref files
         .pipe(minFilter.restore) // back to original stream
 
@@ -177,7 +184,7 @@ gulp.task('build', ['rev-and-inject', 'images', 'fonts'], function() {
         .src('')
         .pipe(plugins.notify({
             onLast: true,
-            message: 'Filemap Web UI built!'
+            message: 'File Maps Web UI built!'
         }));
 });
 
