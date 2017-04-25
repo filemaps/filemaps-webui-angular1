@@ -1,8 +1,20 @@
 <div class="fixed-action-btn">
   <span ng-show="!$ctrl.selection.length">
-    <a class="btn-floating btn-large" href="#browseModal" modal ready="$ctrl.modalReady()" complete="$ctrl.modalComplete()" open="$ctrl.modalOpen">
-      <i class="large material-icons">add</i>
+    <a class="btn-floating btn-large">
+      <i class="large material-icons">mode_edit</i>
     </a>
+    <ul>
+      <li>
+        <a class="btn-floating" title="Select">
+          <i class="material-icons">select_all</i>
+        </a>
+      </li>
+      <li>
+        <a class="btn-floating" href="#browseModal" modal ready="$ctrl.modalReady()" complete="$ctrl.modalComplete()" open="$ctrl.modalOpen" title="Add file">
+          <i class="material-icons">add</i>
+        </a>
+      </li>
+    </ul>
   </span>
 
   <span ng-show="vm.selection.length">
