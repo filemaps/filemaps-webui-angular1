@@ -33,6 +33,11 @@
         var geometry, material, torus;
         var renderer, animation;
         var controls;
+        var raycaster;
+        var selectionPositions;
+        var selectionLine;
+        var mouse;
+        var ground;
         var stage, w, h;
         var objects = [];
         var labels = [];
@@ -76,6 +81,38 @@
                     }
                     update = true;
                     updateLabels();
+                });
+
+                var updateLine = function(point) {
+                    selectionPositions[4] = point.y;
+                    selectionPositions[6] = point.x;
+                    selectionPositions[7] = point.y;
+                    selectionPositions[9] = point.x;
+                    selectionLine.geometry.attributes.position.needsUpdate = true;
+
+                };
+                var mousemove = function(event) {
+                    mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+                    mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
+                    raycaster.setFromCamera(mouse, camera);
+
+                    var intersect = raycaster.intersectObject(ground);
+                    updateLine(intersect[0].point);
+                };
+
+
+
+                raycaster = new THREE.Raycaster();
+                mouse = new THREE.Vector2();
+                $rootScope.$on('fmStartArea', function(evt) {
+                    $rootScope.$emit('fmStopControls');
+
+                    document.addEventListener( 'mousemove', mousemove, false );
+                    //document.addEventListener( 'mouseup', mouseup, false );
+
+
+
                 });
 
                 renderer = THREEService.getRenderer();
@@ -130,7 +167,7 @@
 
                     // Ground
                     var groundMaterial = new THREE.MeshLambertMaterial({ color: 0xffffff });
-                    var ground = new THREE.Mesh(
+                    ground = new THREE.Mesh(
                         new THREE.PlaneBufferGeometry(5000, 5000), groundMaterial
                     );
                     //ground.rotation.x = - Math.PI / 2; // rotate X/Y to X/Z
@@ -155,6 +192,10 @@
                         groundMaterial.map = texture;
                         groundMaterial.needsUpdate = true;
                     });
+
+                    // selection line
+                    selectionLine = initSelection();
+                    scene.add(selectionLine);
 
                     geometry = new THREE.BoxGeometry(40, 56.57, 6);
                     for (var i = 0; i < 0; i++) {
@@ -291,6 +332,43 @@
                     //renderer.render(scene, camera, null, true); // forceClear == true
                     controls.update();
                     renderer.render(scene, camera);
+                }
+
+                function initSelection() {
+                    var lineGeometry = new THREE.BufferGeometry();
+                    selectionPositions = new Float32Array(5 * 3);
+                    lineGeometry.addAttribute('position', new THREE.BufferAttribute(selectionPositions, 3));
+
+
+                    selectionPositions[0] = 0;
+                    selectionPositions[1] = 0;
+                    selectionPositions[2] = 1;
+
+                    selectionPositions[3] = 0;
+                    selectionPositions[4] = 100;
+                    selectionPositions[5] = 1;
+
+                    selectionPositions[6] = 100;
+                    selectionPositions[7] = 100;
+                    selectionPositions[8] = 1;
+
+                    selectionPositions[9] = 100;
+                    selectionPositions[10] = 0;
+                    selectionPositions[11] = 1;
+
+                    selectionPositions[12] = 0;
+                    selectionPositions[13] = 0;
+                    selectionPositions[14] = 1;
+
+
+                    var lineMaterial = new THREE.LineBasicMaterial({
+                        color: 0xff0000,
+                        lineWidth: 2
+                    });
+
+                    var line = new THREE.Line(lineGeometry, lineMaterial);
+                    line.geometry.setDrawRange(0, 5);
+                    return line;
                 }
 
                 function onWindowResize() {

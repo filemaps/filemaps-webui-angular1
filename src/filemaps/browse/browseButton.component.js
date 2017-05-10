@@ -30,6 +30,7 @@
         $ctrl.setSelected = setSelected;
         $ctrl.rootScope = $rootScope;
         $ctrl.removeSelected = removeSelected;
+        $ctrl.startSelection = startSelection;
 
         $rootScope.$on('fmChangeSelection', function(evt) {
             $ctrl.selection = selectionService.get();
@@ -71,6 +72,10 @@
             var resources = angular.copy(selectionService.get());
             mapService.removeResources(resources);
             selectionService.clear();
+        }
+
+        function startSelection() {
+            selectionService.startDrawing();
         }
     }
 })();
