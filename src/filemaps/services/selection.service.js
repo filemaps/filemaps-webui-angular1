@@ -11,9 +11,9 @@
         .module('filemaps.services')
         .factory('selectionService', selectionService);
 
-    selectionService.$inject = ['$rootScope', 'logger'];
+    selectionService.$inject = ['$rootScope', 'sceneService', 'logger'];
 
-    function selectionService($rootScope, logger) {
+    function selectionService($rootScope, sceneService, logger) {
 
         var selections = [];
 
@@ -23,7 +23,6 @@
             replace: replace,
             clear: clear,
             startDrawing: startDrawing,
-            stopDrawing: stopDrawing,
         };
 
         return service;
@@ -51,12 +50,7 @@
 
         function startDrawing() {
             logger.debug('start drawing');
-            $rootScope.$emit('fmStartArea');
-        }
-
-        function stopDrawing() {
-            logger.debug('stop drawing');
-            $rootScope.$emit('fmStopArea');
+            sceneService.startSelection();
         }
     }
 })();
