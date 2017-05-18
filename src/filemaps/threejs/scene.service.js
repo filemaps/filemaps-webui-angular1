@@ -184,6 +184,18 @@
 
         function getObjectsInArea(x1, y1, x2, y2) {
             var sel = [];
+            // make sure x1 < x2
+            if (x1 > x2) {
+                var tmp = x1;
+                x1 = x2;
+                x2 = tmp;
+            }
+            // make sure y1 < y2
+            if (y1 > y2) {
+                var tmp = y1;
+                y1 = y2;
+                y2 = tmp;
+            }
             for (var i = 0; i < objects.length; i++) {
                 var obj = objects[i];
                 if (obj.position.x >= x1 && obj.position.x <= x2 &&
